@@ -1,5 +1,6 @@
 import angular from "angular";
 import angularMeteor from "angular-meteor";
+import { Meteor } from "meteor/meteor";
 import { Thoughts } from "../../api/thoughts.js";
 
 import template from "./thoughtBank.html";
@@ -19,25 +20,21 @@ class ThoughtBankCtrl {
                         createdAt: -1
                     }
                 });
+            },
+            currentUser() {
+                return Meteor.user();
             }
         })
     }
 
     addThought(newThought){
-        Thoughts.insert({
-            text: newThought,
-            createdAt: new Date
-        });
+        Meteor.call("thoughts.insert", newThought);
 
         this.newThought = "";
     }
 
     setArchived(thought) {
-        Thoughts.update(thought._id, {
-            $set: {
-                archived: !thought.archived
-            },
-        });
+        Meteor.call("thoughts.setArchived", thought._id, thought);
     }
 }
 

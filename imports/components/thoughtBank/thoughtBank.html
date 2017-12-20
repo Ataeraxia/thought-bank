@@ -3,7 +3,9 @@
         Thought Bank
     </h1>
 
-    <form class="new-task" ng-submit="$ctrl.addThought($ctrl.newThought)">
+    <login-buttons></login-buttons>
+
+    <form class="new-task" ng-submit="$ctrl.addThought($ctrl.newThought)" ng-show="$ctrl.currentUser">
         <input type="text" ng-model="$ctrl.newThought" name="text" placeholder="Penny for your thoughts">
     </form>
 </header>
