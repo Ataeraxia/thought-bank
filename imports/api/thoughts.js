@@ -4,6 +4,14 @@ import { check } from "meteor/check";
 
 export const Thoughts = new Mongo.Collection("thoughts");
 
+if(Meteor.isServer) {
+    Meteor.publish("thoughts", function thoughtsPublication() {
+        return Thoughts.find({
+            owner: this.userId
+        });
+    });
+}
+
 Meteor.methods({
     "thoughts.insert" (text) {
         check(text, String);
@@ -21,6 +29,10 @@ Meteor.methods({
     },
     "thoughts.setArchived" (thoughtId, thought) {
         check(thoughtId, String);
+
+        if(thought.owner !== Meteor.userId()) {
+            throw new Meteor.Error("not-authorized");
+        }
 
         Thoughts.update(thoughtId, {
             $set: {

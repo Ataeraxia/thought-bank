@@ -9,6 +9,8 @@ class ThoughtBankCtrl {
     constructor($scope) {
         $scope.viewModel(this);
 
+        this.subscribe("thoughts");
+
         this.helpers({
             thoughts() {
                 return Thoughts.find({
