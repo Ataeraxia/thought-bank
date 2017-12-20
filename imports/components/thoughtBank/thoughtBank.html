@@ -1,0 +1,21 @@
+<header>
+    <h1>
+        Thought Bank
+    </h1>
+
+    <form class="new-task" ng-submit="$ctrl.addThought($ctrl.newThought)">
+        <input type="text" ng-model="$ctrl.newThought" name="text" placeholder="Penny for your thoughts">
+    </form>
+</header>
+
+<ul>
+    <li ng-repeat="thot in $ctrl.thoughts" ng-class="{'checked': thot.checked}">
+        <button class="delete" ng-click="$ctrl.setArchived(thot)" title="Archive thought">
+             &cudarrr;
+        </button>
+
+        <span class="text">
+            {{thot.text}}
+        </span>
+    </li>
+</ul>
