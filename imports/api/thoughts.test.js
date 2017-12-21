@@ -29,7 +29,7 @@ if(Meteor.isServer) {
                     userId
                 };
 
-                archiveThought.apply(invocation, [thoughtId]);
+                archiveThought.apply(invocation, [thoughtId, Thoughts.find({thoughtId})]);
 
                 assert.equal(Thoughts.find({
                     archived: {
