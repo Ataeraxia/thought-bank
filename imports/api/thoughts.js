@@ -27,10 +27,12 @@ Meteor.methods({
             username: Meteor.user().username,
         });
     },
-    "thoughts.setArchived" (thoughtId, thought) {
+    "thoughts.setArchived" (thoughtId) {
         check(thoughtId, String);
 
-        if(thought.owner !== Meteor.userId()) {
+        const thought = Thoughts.findOne(thoughtId);
+
+        if(thought.owner !== this.userId) {
             throw new Meteor.Error("not-authorized");
         }
 

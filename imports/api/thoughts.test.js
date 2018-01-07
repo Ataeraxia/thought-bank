@@ -26,10 +26,10 @@ if(Meteor.isServer) {
                 const archiveThought = Meteor.server.method_handlers["thoughts.setArchived"];
 
                 const invocation = {
-                    userId
+                    userId: userId
                 };
 
-                archiveThought.apply(invocation, [thoughtId, Thoughts.find({thoughtId})]);
+                archiveThought.apply(invocation, [thoughtId]);
 
                 assert.equal(Thoughts.find({
                     archived: {
